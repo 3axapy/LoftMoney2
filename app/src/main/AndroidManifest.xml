@@ -23,8 +23,8 @@
 			</intent-filter>
 		</activity>
 
-		<activity android:name=".AddItemActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
-		<activity android:name=".BudgetActivity" android:label="@string/budget_title"/>
+		<activity android:name=".AddItemActivity" android:theme="@style/AddActivityTheme"/>
+		<activity android:name=".BudgetActivity" android:label="@string/budget_title" android:theme="@style/BudgetActivityTheme"/>
 	</application>
 
 </manifest>
