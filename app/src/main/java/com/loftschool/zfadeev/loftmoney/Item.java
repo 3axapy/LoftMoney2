@@ -2,12 +2,16 @@ package com.loftschool.zfadeev.loftmoney;
 
 public class Item {
 	
+	private int id;
 	private String name;
 	private int price;
 	
-	public Item(final String name, final int price) {
-		this.name = name;
-		this.price = price;
+	public int getId() {
+		return id;
+	}
+	
+	public void setId(final int id) {
+		this.id = id;
 	}
 	
 	public String getName() {

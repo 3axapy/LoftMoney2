@@ -8,6 +8,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -21,6 +22,7 @@ public class BudgetActivity extends AppCompatActivity {
 	private TabLayout mTabLayout;
 	private ViewPager mViewPager;
 	private BudgetViewPagerAdapter mViewPagerAdapter;
+	private FloatingActionButton mFloatingActionButton;
 	
 	@Override
 	protected void onCreate(@Nullable final Bundle savedInstanceState) {
@@ -42,8 +44,8 @@ public class BudgetActivity extends AppCompatActivity {
 		
 		mTabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.tab_indictor_color));
 		
-		FloatingActionButton openAddScreenButton = findViewById(R.id.fab_add_screen);
-		openAddScreenButton.setOnClickListener(new View.OnClickListener() {
+		mFloatingActionButton = findViewById(R.id.fab_add_screen);
+		mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(final View v) {
@@ -56,6 +58,22 @@ public class BudgetActivity extends AppCompatActivity {
 				
 			}
 		});
+	}
+	
+	@Override
+	public void onActionModeStarted(final android.view.ActionMode mode) {
+		super.onActionModeStarted(mode);
+		mToolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.dark_grey_blue));
+		mTabLayout.setBackgroundColor(ContextCompat.getColor(this, R.color.dark_grey_blue));
+		mFloatingActionButton.hide();
+	}
+	
+	@Override
+	public void onActionModeFinished(final android.view.ActionMode mode) {
+		super.onActionModeFinished(mode);
+		mToolbar.setBackgroundColor(ContextCompat.getColor(this, R.color.colorPrimary));
+		mTabLayout.setBackgroundColor(ContextCompat.getColor(this, R.color.colorPrimary));
+		mFloatingActionButton.show();
 	}
 	
 	static class BudgetViewPagerAdapter extends FragmentPagerAdapter {
