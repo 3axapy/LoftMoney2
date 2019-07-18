@@ -19,3 +19,12 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+-keep class com.loftschool.zfadeev.loftMoney.AddItemRequest {*;}
+-keep class com.loftschool.zfadeev.loftMoney.AuthResponse {*;}
+-keep class com.loftschool.zfadeev.loftMoney.BalanceResponse {*;}
+-keep class com.loftschool.zfadeev.loftMoney.Item {*;}
+-keep class com.loftschool.zfadeev.loftMoney.Status {*;}
+
+
+
