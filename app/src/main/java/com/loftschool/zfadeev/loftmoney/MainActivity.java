@@ -17,6 +17,8 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity {
 	
 	public static final String AUTH_TOKEN = "auth_token";
+	private Api mApi;
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -25,25 +27,27 @@ public class MainActivity extends AppCompatActivity {
 		
 		if (!TextUtils.isEmpty(getToken())) {
 			startBudgetActivity();
+			return;
 		}
+		
+		LoftApp loftApp = (LoftApp) getApplication();
+		
+		mApi = loftApp.getApi();
 		
 		Button enterButton = findViewById(R.id.enter_button);
 		enterButton.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(final View v) {
-				startBudgetActivity();
+				callAuth();
 			}
 		});
-		
-		
-		LoftApp loftApp = (LoftApp) getApplication();
-		
-		Api api = loftApp.getApi();
-		
+	}
+	
+	private void callAuth() {
 		String androidId = Settings.Secure.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
 		
-		Call<AuthResponse> authCall = api.auth(androidId);
+		Call<AuthResponse> authCall = mApi.auth(androidId);
 		authCall.enqueue(new Callback<AuthResponse>() {
 			
 			@Override
@@ -51,10 +55,12 @@ public class MainActivity extends AppCompatActivity {
 				final Call<AuthResponse> call, final Response<AuthResponse> response
 			) {
 				saveToken(response.body().getAuthToken());
+				startBudgetActivity();
 			}
 			
 			@Override
 			public void onFailure(final Call<AuthResponse> call, final Throwable t) {
+
 				t.printStackTrace();
 			}
 		});
